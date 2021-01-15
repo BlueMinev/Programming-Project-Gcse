@@ -1,4 +1,5 @@
 import random
+#declaring variables that will be used later
 p1point = 0
 p2point = 0
 number11 = 0
@@ -11,8 +12,11 @@ total2 = 0
 authentication2=False
 authentication1= False
 game= False
-people=["Megha","Casper","Emil","Hugo","Lyce", "Tia", "q", "w","Mum","Grandad"]
+people=["Megha","Casper","Emil","Hugo","Lyce", "Tia","Tea", "Nishi"]
 
+#defining functions to call on later
+
+#authentification 
 def authentication (authentication1,authentication2):
     while authentication1== False:
         P1name = input("Player 1, please enter a name ")
@@ -57,19 +61,19 @@ def game(p1point,p2point,number11,number12,number21,number22,counter,total1,tota
             number2d = random.randint(1, 6)
             p2point = p2point + number2d
 
+        #enter is an unused variable to pause until user wants to
         enter= input ("Press enter key to continue")
         counter = counter+ 1
-
+        
+        #prints each players score on each round
         print(" Player 1,your score on round " + str(counter) ,"is " + str(total1), "and your total score is "+ str(p1point))
         print(" Player 2, your score on round " + str(counter) ,"is " + str(total2), "and your total score is "+ str(p2point))
-        print("                                              ")
-        print("                                              ")
-        print("                                              ")
-        print("                                              ")
+        print(" ")
+        print(" ")
     return p1point,p2point
 
+#declares who has won the game
 def winner(p1point,p2point,P1name,P2name):
-    print("aaaaaaaaaaaaaa")
     if p1point < p2point:
         print("Congratulations "+ P2name, "You have won!!")
         authentication1= False
@@ -81,26 +85,33 @@ def winner(p1point,p2point,P1name,P2name):
         winnerName= P1name
         winnerPoints=p1point
     return authentication1, winnerName,winnerPoints
-    
-            
-P1name, P2name = authentication(authentication1,authentication2)         
-#if authentication1== True:
-#while authentication2== True:
+
+# all thing involving files are done in this function
+def fileLeaderboard(winnerName,winnerPoints):
+    # add name and points to leaderboard
+    file=open("leaderboard.txt", "a")
+    file.write("\n")
+    file.write(str(winnerName) +" :"+str(winnerPoints))
+    file.close()
+    #print the leaderboard to the shell
+    print("here is the leaderboard as it stands")
+    file=open("leaderboard.txt" , "r")
+    inFile = file.read()
+    print(inFile)
+
+# main code. calls all the functions 
+P1name, P2name = authentication(authentication1,authentication2)
+
 p1point, p2point = game(p1point,p2point,number11,number12,number21,number22,counter,total1,total2)
+
 authentication1, winnerName,winnerPoints= winner(p1point,p2point,P1name,P2name)
 
+fileLeaderboard(winnerName,winnerPoints)
 
 
-print("yes, we are here")
-file=open("leaderboard.txt", "a")
-file.write("\n")
-file.write(str(winnerName) +" : "+str(winnerPoints))
-file.close()
 
-print("here is the leaderboard as it stands")
-file=open("leaderboard.txt" , "r")
-inFile = file.read()
-print(inFile)
+
+
 
 
 
