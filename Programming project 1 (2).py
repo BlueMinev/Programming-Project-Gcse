@@ -73,24 +73,34 @@ def winner(p1point,p2point,P1name,P2name):
     if p1point < p2point:
         print("Congratulations "+ P2name, "You have won!!")
         authentication1= False
+        winnerName= P2name
+        winnerPoints=p2point
     else :
         print("Congratulations " + P1name, "You have won!!")
         authentication1= False
-    return authentication1
+        winnerName= P1name
+        winnerPoints=p1point
+    return authentication1, winnerName,winnerPoints
     
             
 P1name, P2name = authentication(authentication1,authentication2)         
 #if authentication1== True:
 #while authentication2== True:
 p1point, p2point = game(p1point,p2point,number11,number12,number21,number22,counter,total1,total2)
-authentication1= winner(p1point,p2point,P1name,P2name)
+authentication1, winnerName,winnerPoints= winner(p1point,p2point,P1name,P2name)
 
 
 
 print("yes, we are here")
-file=open("leaderboard.txt", "w")
-file.write("LeaderBoard")
+file=open("leaderboard.txt", "a")
+file.write("\n")
+file.write(str(winnerName) +" : "+str(winnerPoints))
 file.close()
+
+print("here is the leaderboard as it stands")
+file=open("leaderboard.txt" , "r")
+inFile = file.read()
+print(inFile)
 
 
 
